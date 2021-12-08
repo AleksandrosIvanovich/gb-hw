@@ -1,53 +1,109 @@
-import java.util.Arrays;
+/**
+ * Java.Homework3
+ *
+ * @author AleksandrIvanovich
+ * @version 15.11.2021
+ */
 
-public class GBDZ3 {
-public class dz-3 {
+import java.util.Random;
+import java.util.Scanner;
 
-     static int[] change(int[] array01) {
-        for (int i = 0; i < array01.length; i++) {
-            array01[i] = (array01[i] == 0) ? 1 : 0;
+     publicclass Lesson3 {
+        public static  intSIZE = 3;
+        public static int DOTS_TO_WIN = 3;
+        public static final char DOT_EMPTY = '•';
+        public static final char DOT_X = 'X';
+        public static final char DOT_O = 'O';
+        public static char[][] map;
+        public static Scanner sc = new Scanner(System.in);
+        public static Random rand = new Random();
+        public static void main(String[] args) {
+ initMap();
+ printMap();
+            while (true) {
+ humanTurn();
+ printMap();
+                if (checkWin(DOT_X)) {
+                    System.out.println("You Win!");
+                    break;
+                }
+                if (isMapFull()) {
+                    System.out.println("Draw");
+                    break;
+                }
+ aiTurn();
+ printMap();
+                if (checkWin(DOT_O)) {
+                    System.out.println("Looser");
+                    break;
+                }
+                if (isMapFull()) {
+                    System.out.println("Draw");
+                    break;
+                }
+            }
+            System.out.println("Game over");
         }
-        return array01;
-    }
-     static int[] fill(int[] array02) {
-        for (int i = 0; i < 100; i++) {
-            array02[i] = i + 1;
+        public static boolean checkWin(char symb) {
+            for (int i = 0; i < SIZE; i++) {
+                if((map[i][0] == symb && map[i][1] == symb && map[i][2] == symb) ||
+                (map[0][i] == symb && map[1][i] == symb && map[2][i] == symb)) return true;
+            }
+            if (map[0][0] == symb && map[1][1] == symb && map[2][2] == symb) return true;
+            if (map[2][0] == symb && map[1][1] == symb && map[0][2] == symb) return true;
+            return false;
         }
-        return array02;
-    }
-     static int[] x2(int[] array03) {
-        for (int i = 0; i < array03.length; i++) {
-            if (array03[i] < 6) {
-                array03[i] *= 2;
+        public static boolean isMapFull() {
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    if (map[i][j] == DOT_EMPTY) return false;
+                }
+            }
+            return true;
+        }
+        public static void aiTurn() {
+            int x, y;
+            do {
+                x = rand.nextInt(SIZE);
+                y = rand.nextInt(SIZE);
+            } while (!isCellValid(x, y));
+            System.out.println("Your turn " + (x + 1) + " " + (y + 1));
+            map[y][x] = DOT_O;
+        }
+        public static void humanTurn() {
+            int x, y;
+            do {
+                System.out.println("Enter coordinates in the format X Y");
+                x = sc.nextInt() - 1;
+                y = sc.nextInt() - 1;
+            } while (!isCellValid(x, y)); // while(isCellValid(x, y) == false)
+            map[y][x] = DOT_X;
+        }
+        public static boolean isCellValid(int x, int y) {
+            if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) return false;
+            if (map[y][x] == DOT_EMPTY) return true;
+            return false;
+        }
+        public static void initMap() {
+            map = new char[SIZE][SIZE];
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    map[i][j] = DOT_EMPTY;
+                }
             }
         }
-        return array03;
-    }
-    static int[] createAndFillArray(int len, int initialValue) {
-         int[] arr = new int[len];
-         Arrays.fill(arr, initialValue);
-         return arr;
-    }
-    public static void createSquareArray04(int size) {
-        int[][] array04 = new int[size][size];
-        for (int i = 0; i < size; i++) {
-            array04[i][i] = 1;
-            array04[i][size - i -1] = 1;
-            for (int j = 0; j < size; j++) {
-                System.out.print((array04[i][j] + " "));
+        public static void printMap() {
+            for (int i = 0; i <= SIZE; i++) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+            for (int i = 0; i < SIZE; i++) {
+                System.out.print((i + 1) + " ");
+                for (int j = 0; j < SIZE; j++) {
+                    System.out.print(map[i][j] + " ");
+                }
+                System.out.println();
             }
             System.out.println();
         }
     }
-    public static void main (String[] args){
-        int[] array01 = {1, 1, 0, 1, 0, 0};
-        System.out.println(Arrays.toString(change(array01)));
-        int[] array02 = new int[100];
-        System.out.println(Arrays.toString(fill(array02)));
-        int[] array03 =  {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
-        System.out.println(Arrays.toString(x2(array03)));
-        createSquareArray04(5);
-        int[] array05 = createAndFillArray(5,23);
-        System.out.println(Arrays.toString(array05));
-    }
-} 
