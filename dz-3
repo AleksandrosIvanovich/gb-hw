@@ -8,7 +8,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-     publicclass Lesson3 {
+    publicclass Lesson3 {
         public static  intSIZE = 3;
         public static int DOTS_TO_WIN = 3;
         public static final char DOT_EMPTY = '•';
@@ -18,11 +18,11 @@ import java.util.Scanner;
         public static Scanner sc = new Scanner(System.in);
         public static Random rand = new Random();
         public static void main(String[] args) {
- initMap();
- printMap();
+            initMap();
+            printMap();
             while (true) {
- humanTurn();
- printMap();
+                humanTurn();
+                printMap();
                 if (checkWin(DOT_X)) {
                     System.out.println("You Win!");
                     break;
@@ -31,8 +31,8 @@ import java.util.Scanner;
                     System.out.println("Draw");
                     break;
                 }
- aiTurn();
- printMap();
+                aiTurn();
+                printMap();
                 if (checkWin(DOT_O)) {
                     System.out.println("Looser");
                     break;
@@ -76,7 +76,8 @@ import java.util.Scanner;
                 System.out.println("Enter coordinates in the format X Y");
                 x = sc.nextInt() - 1;
                 y = sc.nextInt() - 1;
-            } while (!isCellValid(x, y)); // while(isCellValid(x, y) == false)
+            }
+            while (!isCellValid(x, y)); // while(isCellValid(x, y) == false)
             map[y][x] = DOT_X;
         }
         public static boolean isCellValid(int x, int y) {
