@@ -67,7 +67,6 @@ import java.util.Scanner;
                 x = rand.nextInt(SIZE);
                 y = rand.nextInt(SIZE);
             }
-            while (!isCellValid(x, y));
             System.out.println("Your turn " + (x + 1) + " " + (y + 1));
             map[y][x] = DOT_O;
         }
