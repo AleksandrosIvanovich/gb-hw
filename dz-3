@@ -76,8 +76,7 @@ import java.util.Scanner;
                 System.out.println("Enter coordinates in the format X Y");
                 x = sc.nextInt() - 1;
                 y = sc.nextInt() - 1;
-            }
-            while (!isCellValid(x, y)); // while(isCellValid(x, y) == false)
+            } while (!isCellValid(x, y)); // while(isCellValid(x, y) == false)
             map[y][x] = DOT_X;
         }
         public static boolean isCellValid(int x, int y) {
